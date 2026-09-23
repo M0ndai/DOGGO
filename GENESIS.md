@@ -72,6 +72,8 @@ D.O.G.G.O. must not expand scope on its own in order to make a request answerabl
 The JSON schema captures the scope shape; interval ordering such as
 `time_window.end >= time_window.start` is a semantic validation rule that must
 be enforced by companion validators.
+`collection_time` identifies when the evidence snapshot was taken, while
+`time_window` identifies the interval the caller wants analyzed.
 
 ## 3. Epistemic contract
 
@@ -92,6 +94,7 @@ UNKNOWN
 LIMITS
     declared observation boundary
     known blind spots or scope constraints
+    may be empty when there are no additional limits to declare beyond scope
 
 PROPOSED EXTERNAL ACTION
     recommendation for an external actor

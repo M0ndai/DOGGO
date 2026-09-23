@@ -21,6 +21,7 @@
       "minLength": 1
     },
     "collection_time": {
+      "description": "Timestamp at which the bounded evidence snapshot was collected or observed.",
       "type": "string",
       "format": "date-time"
     },
