@@ -26,3 +26,8 @@ The public repository starts from a deliberately strict genesis specification:
 
 See `GENESIS.md` for the core contract and `NON_GOALS.md` for the negative
 specification.
+
+For the detailed repository contract, see:
+
+- `spec/` for the focused identity, authority, scope, epistemics, report, and invariant notes
+- `schemas/` for the machine-readable observation scope and observation report contracts
