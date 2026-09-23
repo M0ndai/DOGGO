@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doggo.dev/schemas/observation-scope.schema.json",
+  "title": "D.O.G.G.O. Observation Scope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subject",
+    "evidence_boundary",
+    "collection_time",
+    "time_window",
+    "requested_signal"
+  ],
+  "properties": {
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_boundary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "time_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "requested_signal": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

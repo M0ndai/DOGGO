@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doggo.dev/schemas/observation-report.schema.json",
+  "title": "D.O.G.G.O. Observation Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "observation",
+    "assessment",
+    "claims",
+    "proposal",
+    "doggo"
+  ],
+  "properties": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "scope_ref",
+        "evidence_refs"
+      ],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOMINAL",
+            "ATTENTION",
+            "ANOMALY",
+            "UNKNOWN",
+            "INSUFFICIENT_EVIDENCE"
+          ]
+        }
+      }
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed",
+        "inferred",
+        "unknown"
+      ],
+      "properties": {
+        "observed": {
+          "type": "array"
+        },
+        "inferred": {
+          "type": "array"
+        },
+        "unknown": {
+          "type": "array"
+        }
+      }
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_actions"
+      ],
+      "properties": {
+        "external_actions": {
+          "type": "array"
+        }
+      }
+    },
+    "doggo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_used",
+        "effects_produced"
+      ],
+      "properties": {
+        "authority_used": {
+          "const": "NONE"
+        },
+        "effects_produced": {
+          "const": "NONE"
+        }
+      }
+    }
+  }
+}
