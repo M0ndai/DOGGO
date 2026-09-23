@@ -25,7 +25,7 @@
       "format": "date-time"
     },
     "time_window": {
-      "description": "Inclusive observation interval.",
+      "description": "Inclusive observation interval. Ordering between start and end must be enforced by companion validation outside JSON Schema.",
       "type": "object",
       "additionalProperties": false,
       "required": [
