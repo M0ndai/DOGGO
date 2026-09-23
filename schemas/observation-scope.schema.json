@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doggo.dev/schemas/observation-scope.schema.json",
+  "title": "D.O.G.G.O. Observation Scope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subject",
+    "evidence_boundary",
+    "collection_time",
+    "time_window",
+    "requested_signal"
+  ],
+  "properties": {
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_boundary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collection_time": {
+      "description": "Timestamp at which the bounded evidence snapshot was collected or observed.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "time_window": {
+      "description": "Inclusive observation interval. Ordering between start and end must be enforced by companion validation outside JSON Schema.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "requested_signal": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doggo.dev/schemas/observation-report.schema.json",
+  "title": "D.O.G.G.O. Observation Report",
+  "type": "object",
+  "$defs": {
+    "reference_list": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "non_empty_reference_list": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "observation",
+    "assessment",
+    "claims",
+    "proposal",
+    "doggo"
+  ],
+  "properties": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "scope_ref"
+      ],
+      "properties": {
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "description": "Optional observation-level evidence references consulted for the report as a whole. Claim-level provenance remains required for observed and inferred claims.",
+          "$ref": "#/$defs/non_empty_reference_list"
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOMINAL",
+            "ATTENTION",
+            "ANOMALY",
+            "UNKNOWN",
+            "INSUFFICIENT_SCOPE",
+            "INSUFFICIENT_EVIDENCE"
+          ]
+        }
+      }
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed",
+        "inferred",
+        "unknown",
+        "limits"
+      ],
+      "properties": {
+        "observed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "statement",
+              "evidence_refs"
+            ],
+            "properties": {
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_refs": {
+                "$ref": "#/$defs/non_empty_reference_list"
+              }
+            }
+          }
+        },
+        "inferred": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "statement",
+              "basis"
+            ],
+            "properties": {
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "description": "Evidence references that make the derivation visible.",
+                "$ref": "#/$defs/non_empty_reference_list"
+              }
+            }
+          }
+        },
+        "unknown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "question",
+              "reason"
+            ],
+            "properties": {
+              "question": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "description"
+            ],
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_actions"
+      ],
+      "properties": {
+        "external_actions": {
+          "description": "Explicit proposal slot. This array may be empty when no external action is warranted.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "actor",
+              "action",
+              "rationale"
+            ],
+            "properties": {
+              "actor": {
+                "type": "string",
+                "minLength": 1
+              },
+              "action": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "doggo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_used",
+        "effects_produced"
+      ],
+      "properties": {
+        "authority_used": {
+          "const": "NONE"
+        },
+        "effects_produced": {
+          "const": "NONE"
+        }
+      }
+    }
+  }
+}
