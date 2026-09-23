@@ -109,7 +109,7 @@
               },
               "basis": {
                 "type": "array",
-                "description": "References that make the derivation visible, such as supporting observed-claim identifiers or evidence references.",
+                "description": "Evidence references that make the derivation visible.",
                 "minItems": 1,
                 "items": {
                   "type": "string",
@@ -168,6 +168,7 @@
         "external_actions": {
           "description": "Explicit proposal slot. This array may be empty when no external action is warranted.",
           "type": "array",
+          "minItems": 0,
           "items": {
             "type": "object",
             "additionalProperties": false,
