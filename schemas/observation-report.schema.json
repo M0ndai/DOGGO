@@ -17,8 +17,7 @@
       "additionalProperties": false,
       "required": [
         "subject",
-        "scope_ref",
-        "evidence_refs"
+        "scope_ref"
       ],
       "properties": {
         "subject": {
@@ -31,8 +30,7 @@
         },
         "evidence_refs": {
           "type": "array",
-          "description": "Evidence references consulted for the observation. This may be empty when evidence is unavailable and the report surfaces UNKNOWN or INSUFFICIENT_EVIDENCE.",
-          "minItems": 0,
+          "description": "Optional observation-level evidence references consulted for the report as a whole. Claim-level provenance remains required for observed and inferred claims.",
           "items": {
             "type": "string",
             "minLength": 1
@@ -53,6 +51,7 @@
             "ATTENTION",
             "ANOMALY",
             "UNKNOWN",
+            "INSUFFICIENT_SCOPE",
             "INSUFFICIENT_EVIDENCE"
           ]
         }

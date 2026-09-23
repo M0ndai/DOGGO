@@ -6,10 +6,10 @@ Minimum report carrier:
 observation:
   subject: ...
   scope_ref: ...
-  evidence_refs: [...]
+  evidence_refs: [...]  # optional when no observation-level evidence exists
 
 assessment:
-  status: NOMINAL | ATTENTION | ANOMALY | UNKNOWN | INSUFFICIENT_EVIDENCE
+  status: NOMINAL | ATTENTION | ANOMALY | UNKNOWN | INSUFFICIENT_SCOPE | INSUFFICIENT_EVIDENCE
 
 claims:
   observed:
@@ -37,3 +37,6 @@ doggo:
 
 `proposal.external_actions` may be empty when no recommendation is warranted;
 the proposal section remains explicit to preserve a fixed report shape.
+Likewise, `doggo.authority_used` and `doggo.effects_produced` remain explicit
+fixed-value fields so validators can prove the report stayed non-authoritative
+and non-effectful.

@@ -117,10 +117,10 @@ Minimal result carrier:
 observation:
   subject: ...
   scope_ref: ...
-  evidence_refs: [...]
+  evidence_refs: [...]  # optional when no observation-level evidence exists
 
 assessment:
-  status: NOMINAL | ATTENTION | ANOMALY | UNKNOWN | INSUFFICIENT_EVIDENCE
+  status: NOMINAL | ATTENTION | ANOMALY | UNKNOWN | INSUFFICIENT_SCOPE | INSUFFICIENT_EVIDENCE
 
 claims:
   observed:
