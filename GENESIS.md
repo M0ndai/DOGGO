@@ -116,12 +116,21 @@ assessment:
   status: NOMINAL | ATTENTION | ANOMALY | UNKNOWN | INSUFFICIENT_EVIDENCE
 
 claims:
-  observed: [...]
-  inferred: [...]
-  unknown: [...]
+  observed:
+    - statement: ...
+      evidence_refs: [...]
+  inferred:
+    - statement: ...
+      basis: [...]
+  unknown:
+    - question: ...
+      reason: ...
 
 proposal:
-  external_actions: []
+  external_actions:
+    - actor: ...
+      action: ...
+      rationale: ...
 
 doggo:
   authority_used: NONE
