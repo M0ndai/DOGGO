@@ -25,7 +25,7 @@
       "format": "date-time"
     },
     "time_window": {
-      "description": "Inclusive observation interval. Producers and validators must reject windows where end is earlier than start.",
+      "description": "Inclusive observation interval.",
       "type": "object",
       "additionalProperties": false,
       "required": [
