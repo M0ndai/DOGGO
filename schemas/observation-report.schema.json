@@ -31,6 +31,7 @@
         "evidence_refs": {
           "type": "array",
           "description": "Optional observation-level evidence references consulted for the report as a whole. Claim-level provenance remains required for observed and inferred claims.",
+          "minItems": 1,
           "items": {
             "type": "string",
             "minLength": 1
@@ -108,6 +109,7 @@
               },
               "basis": {
                 "type": "array",
+                "description": "References that make the derivation visible, such as supporting observed-claim identifiers or evidence references.",
                 "minItems": 1,
                 "items": {
                   "type": "string",
