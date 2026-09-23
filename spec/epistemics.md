@@ -4,7 +4,8 @@ Every report must separate:
 
 - `OBSERVED`
 - `INFERRED`
-- `UNKNOWN / LIMITS`
+- `UNKNOWN`
+- `LIMITS`
 - `PROPOSED EXTERNAL ACTION`
 
 Required constraints:

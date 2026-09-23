@@ -21,6 +21,8 @@ claims:
   unknown:
     - question: ...
       reason: ...
+  limits:
+    - description: ...
 
 proposal:
   external_actions:
@@ -32,3 +34,6 @@ doggo:
   authority_used: NONE
   effects_produced: NONE
 ```
+
+`proposal.external_actions` may be empty when no recommendation is warranted;
+the proposal section remains explicit to preserve a fixed report shape.

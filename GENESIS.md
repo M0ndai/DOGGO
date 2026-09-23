@@ -69,6 +69,9 @@ If materially required scope is missing:
 ```
 
 D.O.G.G.O. must not expand scope on its own in order to make a request answerable.
+The JSON schema captures the scope shape; interval ordering such as
+`time_window.end >= time_window.start` is a semantic validation rule that must
+be enforced by companion validators.
 
 ## 3. Epistemic contract
 
@@ -82,9 +85,13 @@ INFERRED
     derived from observations
     derivation must remain visible
 
-UNKNOWN / LIMITS
+UNKNOWN
     not decidable
     missing or contradictory evidence
+
+LIMITS
+    declared observation boundary
+    known blind spots or scope constraints
 
 PROPOSED EXTERNAL ACTION
     recommendation for an external actor
@@ -125,6 +132,8 @@ claims:
   unknown:
     - question: ...
       reason: ...
+  limits:
+    - description: ...
 
 proposal:
   external_actions:
@@ -140,6 +149,8 @@ doggo:
 The `authority_used` and `effects_produced` fields remain explicit even when they
 always equal `NONE`, because that allows validation of the non-authoritative,
 non-effectful contract.
+The `proposal.external_actions` list also remains explicit and may be empty when
+no external action is warranted.
 
 ## 5. Trust boundary
 
