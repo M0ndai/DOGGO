@@ -29,6 +29,15 @@ This repository currently supplies only the declarative Genesis contract and
 its tests. It supplies no executor, authorization path, persistence mechanism,
 or canonical-state owner.
 
+## ChatGPT/Codex Plugin
+
+The root `plugin.json` and `skills/bounded-observation/SKILL.md` package the
+Genesis observation procedure as a Skills-only Plugin. The Skill requires a
+user-supplied scope and evidence and stops after an evidence-bound report.
+It adds no watchdog daemon, integrations, execution, or authority. A portable
+package includes `plugin.json`, `skills/`, and the Genesis contract; it excludes
+`.git/`, tests, and local caches.
+
 ## Verify
 
 The contract test relies only on Python's standard library:
