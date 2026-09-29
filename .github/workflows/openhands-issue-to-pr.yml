@@ -1,0 +1,86 @@
+name: OpenHands issue to PR
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: openhands-issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    if: github.event.label.name == 'openhands'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post acknowledgment comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh issue comment "$ISSUE" --repo "$REPO" --body \
+            "OpenHands is starting work on this issue. The conversation link will follow."
+
+      - name: Start OpenHands Cloud conversation
+        id: start
+        env:
+          OPENHANDS_API_KEY: ${{ secrets.OPENHANDS_API_KEY }}
+          ISSUE: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+          if [ -z "${OPENHANDS_API_KEY:-}" ]; then
+            echo "::error::Repository secret OPENHANDS_API_KEY is not set."
+            exit 1
+          fi
+
+          python3 - <<'PY' > /tmp/payload.json
+          import json, os
+          issue = os.environ["ISSUE"]
+          repo = os.environ["REPO"]
+          prompt = (
+              f"Implement GitHub issue #{issue} in {repo}.\n\n"
+              f"Title: {os.environ['TITLE']}\n\n"
+              f"Body:\n{os.environ['BODY']}\n\n"
+              "Requirements:\n"
+              "- Work on a new branch off the default branch.\n"
+              "- Run the repository's tests before opening a pull request:\n"
+              "  python3 -m unittest discover -s tests -p 'test_*.py'\n"
+              f'- Open a DRAFT pull request that references this issue with "Closes #{issue}".\n'
+              "- Do not push to the default branch and do not merge.\n"
+          )
+          print(json.dumps({
+              "initial_message": {"content": [{"type": "text", "text": prompt}]},
+              "selected_repository": repo,
+              "title": f"OpenHands: issue #{issue} - {os.environ['TITLE']}",
+          }))
+          PY
+
+          resp=$(curl -sS -X POST "https://app.all-hands.dev/api/v1/app-conversations" \
+            -H "Authorization: Bearer ${OPENHANDS_API_KEY}" \
+            -H "Content-Type: application/json" \
+            --data-binary @/tmp/payload.json)
+          echo "$resp" > /tmp/resp.json
+
+          CID=$(python3 -c "import json; d=json.load(open('/tmp/resp.json')); print(d.get('app_conversation_id') or d.get('id') or '')")
+          echo "conversation_id=${CID}" >> "$GITHUB_OUTPUT"
+          echo "Conversation: ${CID}"
+
+      - name: Report conversation link on the issue
+        if: steps.start.outputs.conversation_id != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          CID: ${{ steps.start.outputs.conversation_id }}
+        run: |
+          gh issue comment "$ISSUE" --repo "$REPO" --body \
+            "OpenHands conversation started: https://app.all-hands.dev/conversations/${CID}"
