@@ -1,0 +1,58 @@
+{
+  "schema": "DOGGOSecurityObservation/v0.1",
+  "subject": {
+    "status": "SUPPLIED",
+    "type": "contract-fixture",
+    "ref": "fixture:synthetic-policy-drift"
+  },
+  "evidence_boundary": {
+    "status": "SUPPLIED",
+    "sources": [
+      {
+        "type": "fixture",
+        "ref": "fixture:evidence/policy-drift-1",
+        "collected_at": "2026-09-27T12:05:00Z"
+      }
+    ]
+  },
+  "time_window": {
+    "status": "SUPPLIED",
+    "start": "2026-09-27T12:00:00Z",
+    "end": "2026-09-27T12:05:00Z"
+  },
+  "requested_signal": {
+    "status": "SUPPLIED",
+    "signal": "synthetic policy deviation"
+  },
+  "observations": [
+    {
+      "statement": "The synthetic fixture differs from its supplied policy baseline.",
+      "evidence_refs": [
+        "fixture:evidence/policy-drift-1"
+      ],
+      "observed_at": "2026-09-27T12:05:00Z"
+    }
+  ],
+  "inferences": [
+    {
+      "statement": "The fixture represents a bounded policy anomaly.",
+      "basis_observation_indices": [
+        0
+      ]
+    }
+  ],
+  "limits": [
+    "This is synthetic contract data and does not describe a live system."
+  ],
+  "observation_status": "ANOMALY",
+  "handoff_status": "PROPOSED",
+  "external_recommendation": {
+    "summary": "Ask the fixture owner to review the bounded deviation.",
+    "proposed_action": "Review the supplied evidence and decide whether any separately authorized work is warranted.",
+    "severity_rationale": "The synthetic deviation directly contradicts the supplied fixture baseline.",
+    "confidence": "HIGH",
+    "owner_ref": "human:fixture-owner"
+  },
+  "authority": "NONE",
+  "effect": "NONE"
+}

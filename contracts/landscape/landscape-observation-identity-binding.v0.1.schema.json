@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:doggo:contract:LandscapeObservationIdentityBinding:v0.1",
+  "title": "LandscapeObservationIdentityBinding/v0.1",
+  "description": "Binds one complete LandscapeObservation/v0.1 content reference to the Corpus content identity profile. Identity metadata only; not authority, effect, eligibility, admission, canonicality, freshness, or semantic claim.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "identity_profile",
+    "identity_projection",
+    "content_ref"
+  ],
+  "properties": {
+    "schema": {
+      "const": "LandscapeObservationIdentityBinding/v0.1"
+    },
+    "identity_profile": {
+      "const": "CorpusContentIdentityProfile/v0.1"
+    },
+    "identity_projection": {
+      "const": "FULL_LANDSCAPE_OBSERVATION_V0_1"
+    },
+    "content_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "const": "LandscapeObservation/v0.1"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

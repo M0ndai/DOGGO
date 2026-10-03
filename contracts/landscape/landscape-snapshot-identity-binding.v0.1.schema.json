@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:doggo:contract:LandscapeSnapshotIdentityBinding:v0.1",
+  "title": "LandscapeSnapshotIdentityBinding/v0.1",
+  "description": "Binds one complete LandscapeSnapshot/v0.1 content reference to the Corpus content identity profile. Identity metadata only; not authority, effect, admission, canonicality, or landscape truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "identity_profile",
+    "identity_projection",
+    "content_ref"
+  ],
+  "properties": {
+    "schema": {
+      "const": "LandscapeSnapshotIdentityBinding/v0.1"
+    },
+    "identity_profile": {
+      "const": "CorpusContentIdentityProfile/v0.1"
+    },
+    "identity_projection": {
+      "const": "FULL_LANDSCAPE_SNAPSHOT_V0_1"
+    },
+    "content_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "const": "LandscapeSnapshot/v0.1"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

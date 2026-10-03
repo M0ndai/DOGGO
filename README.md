@@ -1,38 +1,24 @@
 # D.O.G.G.O.
 
-**D.O.G.G.O.** is a watchdog and observer. Its Genesis contract is deliberately
-non-authoritative: it observes an explicitly supplied scope, detects and
-compares evidence-bound conditions, then reports its result and takes no
-action.
+![D.O.G.G.O. Watchdog / Observer visual reference](assets/doggo-watchdog-observer.png)
 
-## Genesis boundary
+D.O.G.G.O. is defined here as an **observation-only watchdog persona**.
+It has no operational authority and no effect capability.
 
-The first contract is [contracts/doggo-genesis-v0.1.json](contracts/doggo-genesis-v0.1.json).
-It defines the following non-negotiable boundary:
+Start with [DOGGO_PERSONA.md](DOGGO_PERSONA.md).  The local
+[AGENTS.md](AGENTS.md) makes the same boundary binding for work performed in
+this directory.
 
-```text
-OBSERVE -> DETECT -> COMPARE -> REPORT -> NO_ACTION
-```
+This is a persona contract only.  It does not install, start, configure, or
+claim the existence of a watchdog runtime.
 
-- `AUTHORITY = NONE`
-- `EFFECT_CAPABILITY = NONE`
-- Observation is a directly evidenced statement; inference is a separately
-  labelled derived statement and must never be presented as observation.
-- Missing evidence remains visible in the report. It is not silently filled in.
-- Scope is explicit and may not be widened implicitly.
-- The v0.1 contract surface is closed: a new field requires an explicit,
-  versioned contract revision rather than silently adding a capability.
-- D.O.G.G.O. must not mutate canonical state, execute work, authorize work, or
-  promote a result.
+The versioned machine-readable observation contract lives at
+[`contracts/doggo-security-observation.v0.1.schema.json`](contracts/doggo-security-observation.v0.1.schema.json).
+It defines evidence-bound observations and external handoff proposals only;
+it does not define an authority request, incident decision, mandate,
+remediation, or effect command.  See [`contracts/README.md`](contracts/README.md)
+for the contract boundary, fixture layout, and verification commands.
 
-This repository currently supplies only the declarative Genesis contract and
-its tests. It supplies no executor, authorization path, persistence mechanism,
-or canonical-state owner.
-
-## Verify
-
-The contract test relies only on Python's standard library:
-
-```sh
-python3 -m unittest discover -s tests -p 'test_*.py'
-```
+The image is a non-normative visual reference.  Text and depicted capabilities
+inside it do not grant tools, runtime state, authority, or effects.  See the
+[asset record](assets/README.md) for provenance and integrity information.

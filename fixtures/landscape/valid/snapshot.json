@@ -1,0 +1,39 @@
+{
+  "authority": "NONE",
+  "completeness": {
+    "enumerated_file_count": 37,
+    "exclusions": [
+      {
+        "count": 301,
+        "enumerated": "NOT_ENUMERATED",
+        "reason": "BASELINE_POLICY_SKIPPED",
+        "type": "SYMLINK"
+      }
+    ],
+    "status": "PARTIAL_BY_POLICY"
+  },
+  "effect": "NONE",
+  "evidence_ref_count": 37,
+  "limits": [
+    "excluded path classes are counted but not enumerated; absence never proves non-existence",
+    "snapshot identity covers project observation membership only, not landscape completeness"
+  ],
+  "observed_at": "2026-09-28T22:40:24.336510Z",
+  "project_count": 1,
+  "project_observation_refs": [
+    {
+      "ref": "sha256:821e8b4e461b137a41aade0ebb0ecc2418c52764e1320c727267797877756e9e",
+      "type": "LandscapeObservation/v0.1"
+    }
+  ],
+  "schema": "LandscapeSnapshot/v0.1",
+  "snapshot_id": {
+    "ref": "sha256:4c0fddbe7de3b8b674d7abf06713cb96f84673f26338d5eb453ed0b05eb5b5a2",
+    "type": "LandscapeSnapshot/v0.1"
+  },
+  "source_identity": {
+    "baseline_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "baseline_ref": "file-index-manifest.json",
+    "collector_version": "mycodeindex.landscape-collector/0.1.0"
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:doggo:contract:LandscapeSnapshot:v0.1",
+  "title": "LandscapeSnapshot/v0.1",
+  "description": "Immutable membership projection over a set of LandscapeObservation/v0.1 content references. The snapshot is derived from project observations and never referenced by them, so no identity is circular. This contract carries no authority and permits no effect.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "snapshot_id",
+    "observed_at",
+    "source_identity",
+    "project_observation_refs",
+    "project_count",
+    "evidence_ref_count",
+    "completeness",
+    "limits",
+    "authority",
+    "effect"
+  ],
+  "properties": {
+    "schema": {
+      "const": "LandscapeSnapshot/v0.1"
+    },
+    "snapshot_id": {
+      "description": "Membership root over project_observation_refs. Deliberately NOT the snapshot's own content identity, which becomes computable only once the document is complete and is minted by its identity binding.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "const": "LandscapeSnapshot/v0.1"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "observed_at": {
+      "$ref": "#/$defs/canonicalUtcTimestamp"
+    },
+    "source_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseline_digest"
+      ],
+      "properties": {
+        "baseline_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "collector_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "project_observation_refs": {
+      "description": "Typed content references to project observations, sorted ascending by ref so that the snapshot is byte-deterministic regardless of filesystem traversal order. Only LandscapeObservation/v0.1 is admitted as a member: a snapshot states membership over observations, not over arbitrary corpus content.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/observationContentRef"
+      }
+    },
+    "project_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9223372036854775807
+    },
+    "evidence_ref_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9223372036854775807
+    },
+    "completeness": {
+      "$ref": "#/$defs/completeness"
+    },
+    "limits": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authority": {
+      "const": "NONE"
+    },
+    "effect": {
+      "const": "NONE"
+    }
+  },
+  "$defs": {
+    "canonicalUtcTimestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}Z$"
+    },
+    "typedContentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}/v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "observationContentRef": {
+      "description": "Membership is restricted to project observations. Admitting any other contract type here would let a snapshot claim coverage it never observed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "const": "LandscapeObservation/v0.1"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "exclusion": {
+      "description": "A class of paths deliberately not observed. Never silently treated as absent from the source.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "count",
+        "reason",
+        "enumerated"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "enumerated": {
+          "description": "Whether the individual excluded paths are recoverable. NOT_ENUMERATED means only the count is known, so absence from the snapshot never proves non-existence.",
+          "const": "NOT_ENUMERATED"
+        }
+      }
+    },
+    "completeness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "enumerated_file_count",
+        "exclusions"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "PARTIAL_BY_POLICY"
+          ]
+        },
+        "enumerated_file_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "exclusions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/exclusion"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "status": {
+            "const": "PARTIAL_BY_POLICY"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "exclusions"
+        ]
+      }
+    }
+  }
+}

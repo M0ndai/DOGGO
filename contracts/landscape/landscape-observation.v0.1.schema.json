@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:doggo:contract:LandscapeObservation:v0.1",
+  "title": "LandscapeObservation/v0.1",
+  "description": "Evidence-bound observation of one project in a bounded local source landscape. This contract carries no authority and permits no effect. Membership in a landscape snapshot is expressed by the snapshot, never by this document, so that project observation identity is snapshot-independent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "project_id",
+    "project_root",
+    "provenance",
+    "evidence_boundary",
+    "time_window",
+    "observations",
+    "claims",
+    "inferences",
+    "freshness",
+    "limits",
+    "authority",
+    "effect"
+  ],
+  "properties": {
+    "schema": {
+      "const": "LandscapeObservation/v0.1"
+    },
+    "project_id": {
+      "$ref": "#/$defs/projectId"
+    },
+    "project_root": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "description": "Baseline-relative POSIX path of the project root. Never a semantic name."
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "evidence_boundary": {
+      "$ref": "#/$defs/evidenceBoundary"
+    },
+    "time_window": {
+      "$ref": "#/$defs/timeWindow"
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "inferences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inference"
+      }
+    },
+    "freshness": {
+      "$ref": "#/$defs/freshness"
+    },
+    "limits": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authority": {
+      "const": "NONE"
+    },
+    "effect": {
+      "const": "NONE"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": "LandscapeObservation/v0.1"
+          }
+        },
+        "required": [
+          "schema"
+        ]
+      },
+      "then": {
+        "properties": {
+          "evidence_boundary": {
+            "$ref": "#/$defs/suppliedEvidenceBoundary"
+          },
+          "time_window": {
+            "$ref": "#/$defs/suppliedTimeWindow"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Deterministic identity derived from the baseline-relative project root. Never a semantic name."
+    },
+    "canonicalUtcTimestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}Z$",
+      "description": "The one admitted identity-bearing timestamp spelling. Second precision and UTC offsets are rejected here rather than only by convention, because the content identity profile does not police timestamps itself."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed_at_source",
+        "observed_at_normalized_from_precision"
+      ],
+      "properties": {
+        "observed_at_source": {
+          "enum": [
+            "BASELINE_FINISHED_AT",
+            "EVIDENCE_SUPPLIED"
+          ]
+        },
+        "observed_at_normalized_from_precision": {
+          "enum": [
+            "MICROSECOND",
+            "MILLISECOND",
+            "SECOND"
+          ]
+        },
+        "source_manifest_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Free-form reference to the external source inventory. Deliberately not a Corpus typed content ref: an external file inventory is evidence, not Corpus-admitted content, and its own schema string is not required to match the Corpus contract-type grammar."
+        },
+        "source_manifest_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "typedContentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9._-]{0,127}/v(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)$"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "suppliedEvidenceBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "sources"
+      ],
+      "properties": {
+        "status": {
+          "const": "SUPPLIED"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "ref",
+              "collected_at"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "collected_at": {
+                "$ref": "#/$defs/canonicalUtcTimestamp"
+              }
+            }
+          }
+        }
+      }
+    },
+    "suppliedTimeWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "start",
+        "end"
+      ],
+      "properties": {
+        "status": {
+          "const": "SUPPLIED"
+        },
+        "start": {
+          "$ref": "#/$defs/canonicalUtcTimestamp"
+        },
+        "end": {
+          "$ref": "#/$defs/canonicalUtcTimestamp"
+        }
+      }
+    },
+    "timeWindow": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/suppliedTimeWindow"
+        }
+      ]
+    },
+    "evidenceBoundary": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/suppliedEvidenceBoundary"
+        }
+      ]
+    },
+    "observation": {
+      "description": "A statement about evidence that was directly observed. Deterministic and reconstructable from the cited sources.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "evidence_refs",
+        "observed_at"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "observed_at": {
+          "$ref": "#/$defs/canonicalUtcTimestamp"
+        }
+      }
+    },
+    "claim": {
+      "description": "A typed, deterministically derivable fact over the observations and the source manifest. Exactly one typed value is admitted. Floating point is not part of this contract.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_type",
+        "subject",
+        "metric",
+        "evidence_refs"
+      ],
+      "properties": {
+        "claim_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "metric": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "integer_value": {
+          "type": "integer",
+          "minimum": -9223372036854775808,
+          "maximum": 9223372036854775807
+        },
+        "string_value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192
+        },
+        "boolean_value": {
+          "type": "boolean"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "integer_value"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "string_value"
+                ]
+              },
+              {
+                "required": [
+                  "boolean_value"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "required": [
+            "string_value"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "integer_value"
+                ]
+              },
+              {
+                "required": [
+                  "boolean_value"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "required": [
+            "boolean_value"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "integer_value"
+                ]
+              },
+              {
+                "required": [
+                  "string_value"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "inference": {
+      "description": "An interpretation over the observations. Not reconstructable by an algorithm and never an authorization. This is where future semantic judgments would land, and in V0 the field is expected to be empty.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "basis_observation_indices"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis_observation_indices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "freshness": {
+      "description": "V0 makes no probabilistic freshness claim. The observation states when the underlying state was observed and that no decay model was applied.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observed_at",
+        "decay_model"
+      ],
+      "properties": {
+        "status": {
+          "const": "FRESH_AT_OBSERVATION"
+        },
+        "observed_at": {
+          "$ref": "#/$defs/canonicalUtcTimestamp"
+        },
+        "decay_model": {
+          "const": "NONE"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,541 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:doggo:contract:DOGGOSecurityObservation:v0.1",
+  "title": "DOGGOSecurityObservation/v0.1",
+  "description": "Evidence-bound DOGGO observation. This contract carries no authority and permits no effect.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "subject",
+    "evidence_boundary",
+    "time_window",
+    "requested_signal",
+    "observations",
+    "inferences",
+    "limits",
+    "observation_status",
+    "handoff_status",
+    "authority",
+    "effect"
+  ],
+  "properties": {
+    "schema": {
+      "const": "DOGGOSecurityObservation/v0.1"
+    },
+    "subject": {
+      "$ref": "#/$defs/subject"
+    },
+    "evidence_boundary": {
+      "$ref": "#/$defs/evidenceBoundary"
+    },
+    "time_window": {
+      "$ref": "#/$defs/timeWindow"
+    },
+    "requested_signal": {
+      "$ref": "#/$defs/requestedSignal"
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "inferences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inference"
+      }
+    },
+    "limits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "observation_status": {
+      "enum": [
+        "NOMINAL",
+        "ATTENTION",
+        "ANOMALY",
+        "UNKNOWN",
+        "INSUFFICIENT_EVIDENCE",
+        "INSUFFICIENT_SCOPE"
+      ]
+    },
+    "handoff_status": {
+      "enum": [
+        "NONE",
+        "PROPOSED",
+        "BLOCKED_AUTHORITY"
+      ]
+    },
+    "external_recommendation": {
+      "$ref": "#/$defs/externalRecommendation"
+    },
+    "authority": {
+      "const": "NONE"
+    },
+    "effect": {
+      "const": "NONE"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "observation_status": {
+            "const": "INSUFFICIENT_SCOPE"
+          }
+        },
+        "required": [
+          "observation_status"
+        ]
+      },
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "subject": {
+                "$ref": "#/$defs/missingInput"
+              }
+            }
+          },
+          {
+            "properties": {
+              "evidence_boundary": {
+                "$ref": "#/$defs/missingInput"
+              }
+            }
+          },
+          {
+            "properties": {
+              "time_window": {
+                "$ref": "#/$defs/missingInput"
+              }
+            }
+          },
+          {
+            "properties": {
+              "requested_signal": {
+                "$ref": "#/$defs/missingInput"
+              }
+            }
+          }
+        ]
+      },
+      "else": {
+        "properties": {
+          "subject": {
+            "$ref": "#/$defs/suppliedSubject"
+          },
+          "evidence_boundary": {
+            "$ref": "#/$defs/suppliedEvidenceBoundary"
+          },
+          "time_window": {
+            "$ref": "#/$defs/suppliedTimeWindow"
+          },
+          "requested_signal": {
+            "$ref": "#/$defs/suppliedRequestedSignal"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_status": {
+            "enum": [
+              "NOMINAL",
+              "ATTENTION",
+              "ANOMALY"
+            ]
+          }
+        },
+        "required": [
+          "observation_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "observations": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "handoff_status": {
+            "const": "NONE"
+          }
+        },
+        "required": [
+          "handoff_status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "external_recommendation"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "handoff_status": {
+            "const": "PROPOSED"
+          }
+        },
+        "required": [
+          "handoff_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "external_recommendation"
+        ],
+        "properties": {
+          "external_recommendation": {
+            "required": [
+              "owner_ref"
+            ],
+            "not": {
+              "required": [
+                "blocked_authority_reasons"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "handoff_status": {
+            "const": "BLOCKED_AUTHORITY"
+          }
+        },
+        "required": [
+          "handoff_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "external_recommendation"
+        ],
+        "properties": {
+          "external_recommendation": {
+            "required": [
+              "blocked_authority_reasons"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_status": {
+            "const": "ANOMALY"
+          }
+        },
+        "required": [
+          "observation_status",
+          "external_recommendation"
+        ]
+      },
+      "then": {
+        "properties": {
+          "external_recommendation": {
+            "required": [
+              "severity_rationale",
+              "confidence"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "DOGGOSecurityObservationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "type": {
+          "const": "DOGGOSecurityObservation/v0.1"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "missingInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "missing_reason"
+      ],
+      "properties": {
+        "status": {
+          "const": "MISSING"
+        },
+        "missing_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "suppliedSubject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "type",
+        "ref"
+      ],
+      "properties": {
+        "status": {
+          "const": "SUPPLIED"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "subject": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/suppliedSubject"
+        },
+        {
+          "$ref": "#/$defs/missingInput"
+        }
+      ]
+    },
+    "evidenceSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ref",
+        "collected_at"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collected_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "suppliedEvidenceBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "sources"
+      ],
+      "properties": {
+        "status": {
+          "const": "SUPPLIED"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidenceSource"
+          }
+        }
+      }
+    },
+    "evidenceBoundary": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/suppliedEvidenceBoundary"
+        },
+        {
+          "$ref": "#/$defs/missingInput"
+        }
+      ]
+    },
+    "suppliedTimeWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "start",
+        "end"
+      ],
+      "properties": {
+        "status": {
+          "const": "SUPPLIED"
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "timeWindow": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/suppliedTimeWindow"
+        },
+        {
+          "$ref": "#/$defs/missingInput"
+        }
+      ]
+    },
+    "suppliedRequestedSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "signal"
+      ],
+      "properties": {
+        "status": {
+          "const": "SUPPLIED"
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "requestedSignal": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/suppliedRequestedSignal"
+        },
+        {
+          "$ref": "#/$defs/missingInput"
+        }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "evidence_refs",
+        "observed_at"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "inference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "basis_observation_indices"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis_observation_indices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "externalRecommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "proposed_action"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proposed_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "owner_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocked_authority_reasons": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "OWNER_UNKNOWN",
+              "AUTHORITY_UNKNOWN",
+              "TARGET_AMBIGUOUS"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

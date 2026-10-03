@@ -1,0 +1,1 @@
+"""DOGGO contract tests."""

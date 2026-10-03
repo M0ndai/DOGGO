@@ -1,0 +1,9 @@
+{
+  "schema": "DOGGOSecurityObservationIdentityBinding/v0.1",
+  "identity_profile": "CorpusContentIdentityProfile/v0.1",
+  "identity_projection": "FULL_DOGGO_SECURITY_OBSERVATION_V0_1",
+  "content_ref": {
+    "type": "DOGGOSecurityObservation/v0.1",
+    "ref": "sha256:433a46e35956cc74b33d051c65afd4ff7a9bd2142439cd16abe20a20d12d6caf"
+  }
+}

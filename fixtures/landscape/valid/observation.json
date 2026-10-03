@@ -1,0 +1,102 @@
+{
+  "authority": "NONE",
+  "claims": [
+    {
+      "claim_type": "FILE_COUNT",
+      "evidence_refs": [
+        "file-index-manifest.json#codebases/example/service"
+      ],
+      "integer_value": 37,
+      "metric": "enumerated_files",
+      "subject": "project"
+    },
+    {
+      "claim_type": "FILE_COUNT",
+      "evidence_refs": [
+        "file-index-manifest.json#codebases/example/service"
+      ],
+      "integer_value": 22,
+      "metric": "classified_source_files",
+      "subject": "project"
+    },
+    {
+      "claim_type": "MARKER_COUNT",
+      "evidence_refs": [
+        "file-index-manifest.json#codebases/example/service"
+      ],
+      "integer_value": 1,
+      "metric": "root_markers",
+      "subject": "project"
+    },
+    {
+      "claim_type": "MARKER_COUNT",
+      "evidence_refs": [
+        "file-index-manifest.json#codebases/example/service"
+      ],
+      "integer_value": 1,
+      "metric": "supporting_markers",
+      "subject": "project"
+    },
+    {
+      "claim_type": "NESTED_PROJECT_COUNT",
+      "evidence_refs": [
+        "file-index-manifest.json#codebases/example/service"
+      ],
+      "integer_value": 0,
+      "metric": "nested_projects",
+      "subject": "project"
+    }
+  ],
+  "effect": "NONE",
+  "evidence_boundary": {
+    "sources": [
+      {
+        "collected_at": "2026-09-28T22:40:24.336510Z",
+        "ref": "file-index-manifest.json#codebases/example/service",
+        "type": "FILE_INDEX_MANIFEST"
+      }
+    ],
+    "status": "SUPPLIED"
+  },
+  "freshness": {
+    "decay_model": "NONE",
+    "observed_at": "2026-09-28T22:40:24.336510Z",
+    "status": "FRESH_AT_OBSERVATION"
+  },
+  "inferences": [],
+  "limits": [
+    "observations are metadata-only; file content was not read or hashed in this revision",
+    "project roots are established by root markers only; a directory without a root marker is not a project"
+  ],
+  "observations": [
+    {
+      "evidence_refs": [
+        "codebases/example/service/pyproject.toml",
+        "file-index-manifest.json#codebases/example/service"
+      ],
+      "observed_at": "2026-09-28T22:40:24.336510Z",
+      "statement": "root marker pyproject.toml present at codebases/example/service/pyproject.toml"
+    },
+    {
+      "evidence_refs": [
+        "codebases/example/service/skills/demo/SKILL.md"
+      ],
+      "observed_at": "2026-09-28T22:40:24.336510Z",
+      "statement": "supporting marker SKILL.md present at codebases/example/service/skills/demo/SKILL.md"
+    }
+  ],
+  "project_id": "sha256:8c1a197de1f4a680b3873a42947addbdb3344d5798114ca755a7c5965c026b8c",
+  "project_root": "codebases/example/service",
+  "provenance": {
+    "observed_at_normalized_from_precision": "MILLISECOND",
+    "observed_at_source": "BASELINE_FINISHED_AT",
+    "source_manifest_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_manifest_ref": "file-index-manifest.json"
+  },
+  "schema": "LandscapeObservation/v0.1",
+  "time_window": {
+    "end": "2026-09-28T22:40:24.336510Z",
+    "start": "2026-09-28T22:40:24.336510Z",
+    "status": "SUPPLIED"
+  }
+}

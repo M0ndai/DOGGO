@@ -1,0 +1,9 @@
+{
+  "content_ref": {
+    "ref": "sha256:821e8b4e461b137a41aade0ebb0ecc2418c52764e1320c727267797877756e9e",
+    "type": "LandscapeObservation/v0.1"
+  },
+  "identity_profile": "CorpusContentIdentityProfile/v0.1",
+  "identity_projection": "FULL_LANDSCAPE_OBSERVATION_V0_1",
+  "schema": "LandscapeObservationIdentityBinding/v0.1"
+}

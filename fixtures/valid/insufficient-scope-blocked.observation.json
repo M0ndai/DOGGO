@@ -1,0 +1,37 @@
+{
+  "schema": "DOGGOSecurityObservation/v0.1",
+  "subject": {
+    "status": "MISSING",
+    "missing_reason": "No unambiguous subject reference was supplied."
+  },
+  "evidence_boundary": {
+    "status": "MISSING",
+    "missing_reason": "No permitted evidence sources were supplied."
+  },
+  "time_window": {
+    "status": "MISSING",
+    "missing_reason": "No assessment period was supplied."
+  },
+  "requested_signal": {
+    "status": "MISSING",
+    "missing_reason": "No requested condition was supplied."
+  },
+  "observations": [],
+  "inferences": [],
+  "limits": [
+    "The observation scope is incomplete and may not be broadened heuristically."
+  ],
+  "observation_status": "INSUFFICIENT_SCOPE",
+  "handoff_status": "BLOCKED_AUTHORITY",
+  "external_recommendation": {
+    "summary": "Obtain an explicit subject, evidence boundary, time window, requested signal, and external owner.",
+    "proposed_action": "A human may supply a complete observation scope and separately bind an accountable owner.",
+    "blocked_authority_reasons": [
+      "OWNER_UNKNOWN",
+      "AUTHORITY_UNKNOWN",
+      "TARGET_AMBIGUOUS"
+    ]
+  },
+  "authority": "NONE",
+  "effect": "NONE"
+}

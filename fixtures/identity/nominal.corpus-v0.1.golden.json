@@ -1,0 +1,112 @@
+{
+  "description": "DOGGO full-observation projection under CorpusContentIdentityProfile/v0.1.",
+  "logical_observation": {
+    "schema": "DOGGOSecurityObservation/v0.1",
+    "subject": {
+      "status": "SUPPLIED",
+      "type": "repository",
+      "ref": "git:/home/blackmonolith/mycodeIndex/DOGGO@3e2665f"
+    },
+    "evidence_boundary": {
+      "status": "SUPPLIED",
+      "sources": [
+        {
+          "type": "file",
+          "ref": "DOGGO_PERSONA.md@3e2665f",
+          "collected_at": "2026-09-27T12:00:00.000000Z"
+        }
+      ]
+    },
+    "time_window": {
+      "status": "SUPPLIED",
+      "start": "2026-09-27T12:00:00.000000Z",
+      "end": "2026-09-27T12:00:00.000000Z"
+    },
+    "requested_signal": {
+      "status": "SUPPLIED",
+      "signal": "observation-only contract boundary"
+    },
+    "observations": [
+      {
+        "statement": "The supplied persona contract fixes authority and effect to NONE.",
+        "evidence_refs": [
+          "DOGGO_PERSONA.md@3e2665f"
+        ],
+        "observed_at": "2026-09-27T12:00:00.000000Z"
+      }
+    ],
+    "inferences": [],
+    "limits": [
+      "No runtime state, service health, or external delivery path was observed."
+    ],
+    "observation_status": "NOMINAL",
+    "handoff_status": "NONE",
+    "authority": "NONE",
+    "effect": "NONE"
+  },
+  "identity_envelope": {
+    "profile": "CorpusContentIdentityProfile/v0.1",
+    "type": "DOGGOSecurityObservation/v0.1",
+    "projection": {
+      "schema": "DOGGOSecurityObservation/v0.1",
+      "subject": {
+        "status": "SUPPLIED",
+        "type": "repository",
+        "ref": "git:/home/blackmonolith/mycodeIndex/DOGGO@3e2665f"
+      },
+      "evidence_boundary": {
+        "status": "SUPPLIED",
+        "sources": [
+          {
+            "type": "file",
+            "ref": "DOGGO_PERSONA.md@3e2665f",
+            "collected_at": "2026-09-27T12:00:00.000000Z"
+          }
+        ]
+      },
+      "time_window": {
+        "status": "SUPPLIED",
+        "start": "2026-09-27T12:00:00.000000Z",
+        "end": "2026-09-27T12:00:00.000000Z"
+      },
+      "requested_signal": {
+        "status": "SUPPLIED",
+        "signal": "observation-only contract boundary"
+      },
+      "observations": [
+        {
+          "statement": "The supplied persona contract fixes authority and effect to NONE.",
+          "evidence_refs": [
+            "DOGGO_PERSONA.md@3e2665f"
+          ],
+          "observed_at": "2026-09-27T12:00:00.000000Z"
+        }
+      ],
+      "inferences": [],
+      "limits": [
+        "No runtime state, service health, or external delivery path was observed."
+      ],
+      "observation_status": "NOMINAL",
+      "handoff_status": "NONE",
+      "authority": "NONE",
+      "effect": "NONE"
+    }
+  },
+  "canonical_text": "{\"profile\":\"CorpusContentIdentityProfile/v0.1\",\"projection\":{\"authority\":\"NONE\",\"effect\":\"NONE\",\"evidence_boundary\":{\"sources\":[{\"collected_at\":\"2026-09-27T12:00:00.000000Z\",\"ref\":\"DOGGO_PERSONA.md@3e2665f\",\"type\":\"file\"}],\"status\":\"SUPPLIED\"},\"handoff_status\":\"NONE\",\"inferences\":[],\"limits\":[\"No runtime state, service health, or external delivery path was observed.\"],\"observation_status\":\"NOMINAL\",\"observations\":[{\"evidence_refs\":[\"DOGGO_PERSONA.md@3e2665f\"],\"observed_at\":\"2026-09-27T12:00:00.000000Z\",\"statement\":\"The supplied persona contract fixes authority and effect to NONE.\"}],\"requested_signal\":{\"signal\":\"observation-only contract boundary\",\"status\":\"SUPPLIED\"},\"schema\":\"DOGGOSecurityObservation/v0.1\",\"subject\":{\"ref\":\"git:/home/blackmonolith/mycodeIndex/DOGGO@3e2665f\",\"status\":\"SUPPLIED\",\"type\":\"repository\"},\"time_window\":{\"end\":\"2026-09-27T12:00:00.000000Z\",\"start\":\"2026-09-27T12:00:00.000000Z\",\"status\":\"SUPPLIED\"}},\"type\":\"DOGGOSecurityObservation/v0.1\"}",
+  "canonical_utf8_hex": "7b2270726f66696c65223a22436f72707573436f6e74656e744964656e7469747950726f66696c652f76302e31222c2270726f6a656374696f6e223a7b22617574686f72697479223a224e4f4e45222c22656666656374223a224e4f4e45222c2265766964656e63655f626f756e64617279223a7b22736f7572636573223a5b7b22636f6c6c65637465645f6174223a22323032362d30392d32375431323a30303a30302e3030303030305a222c22726566223a22444f47474f5f504552534f4e412e6d644033653236363566222c2274797065223a2266696c65227d5d2c22737461747573223a22535550504c494544227d2c2268616e646f66665f737461747573223a224e4f4e45222c22696e666572656e636573223a5b5d2c226c696d697473223a5b224e6f2072756e74696d652073746174652c2073657276696365206865616c74682c206f722065787465726e616c2064656c6976657279207061746820776173206f627365727665642e225d2c226f62736572766174696f6e5f737461747573223a224e4f4d494e414c222c226f62736572766174696f6e73223a5b7b2265766964656e63655f72656673223a5b22444f47474f5f504552534f4e412e6d644033653236363566225d2c226f627365727665645f6174223a22323032362d30392d32375431323a30303a30302e3030303030305a222c2273746174656d656e74223a2254686520737570706c69656420706572736f6e6120636f6e747261637420666978657320617574686f7269747920616e642065666665637420746f204e4f4e452e227d5d2c227265717565737465645f7369676e616c223a7b227369676e616c223a226f62736572766174696f6e2d6f6e6c7920636f6e747261637420626f756e64617279222c22737461747573223a22535550504c494544227d2c22736368656d61223a22444f47474f53656375726974794f62736572766174696f6e2f76302e31222c227375626a656374223a7b22726566223a226769743a2f686f6d652f626c61636b6d6f6e6f6c6974682f6d79636f6465496e6465782f444f47474f4033653236363566222c22737461747573223a22535550504c494544222c2274797065223a227265706f7369746f7279227d2c2274696d655f77696e646f77223a7b22656e64223a22323032362d30392d32375431323a30303a30302e3030303030305a222c227374617274223a22323032362d30392d32375431323a30303a30302e3030303030305a222c22737461747573223a22535550504c494544227d7d2c2274797065223a22444f47474f53656375726974794f62736572766174696f6e2f76302e31227d",
+  "preimage_hex": "436f72707573436f6e74656e744964656e7469747950726f66696c652f76302e31007b2270726f66696c65223a22436f72707573436f6e74656e744964656e7469747950726f66696c652f76302e31222c2270726f6a656374696f6e223a7b22617574686f72697479223a224e4f4e45222c22656666656374223a224e4f4e45222c2265766964656e63655f626f756e64617279223a7b22736f7572636573223a5b7b22636f6c6c65637465645f6174223a22323032362d30392d32375431323a30303a30302e3030303030305a222c22726566223a22444f47474f5f504552534f4e412e6d644033653236363566222c2274797065223a2266696c65227d5d2c22737461747573223a22535550504c494544227d2c2268616e646f66665f737461747573223a224e4f4e45222c22696e666572656e636573223a5b5d2c226c696d697473223a5b224e6f2072756e74696d652073746174652c2073657276696365206865616c74682c206f722065787465726e616c2064656c6976657279207061746820776173206f627365727665642e225d2c226f62736572766174696f6e5f737461747573223a224e4f4d494e414c222c226f62736572766174696f6e73223a5b7b2265766964656e63655f72656673223a5b22444f47474f5f504552534f4e412e6d644033653236363566225d2c226f627365727665645f6174223a22323032362d30392d32375431323a30303a30302e3030303030305a222c2273746174656d656e74223a2254686520737570706c69656420706572736f6e6120636f6e747261637420666978657320617574686f7269747920616e642065666665637420746f204e4f4e452e227d5d2c227265717565737465645f7369676e616c223a7b227369676e616c223a226f62736572766174696f6e2d6f6e6c7920636f6e747261637420626f756e64617279222c22737461747573223a22535550504c494544227d2c22736368656d61223a22444f47474f53656375726974794f62736572766174696f6e2f76302e31222c227375626a656374223a7b22726566223a226769743a2f686f6d652f626c61636b6d6f6e6f6c6974682f6d79636f6465496e6465782f444f47474f4033653236363566222c22737461747573223a22535550504c494544222c2274797065223a227265706f7369746f7279227d2c2274696d655f77696e646f77223a7b22656e64223a22323032362d30392d32375431323a30303a30302e3030303030305a222c227374617274223a22323032362d30392d32375431323a30303a30302e3030303030305a222c22737461747573223a22535550504c494544227d7d2c2274797065223a22444f47474f53656375726974794f62736572766174696f6e2f76302e31227d",
+  "digest": "433a46e35956cc74b33d051c65afd4ff7a9bd2142439cd16abe20a20d12d6caf",
+  "typed_ref": {
+    "type": "DOGGOSecurityObservation/v0.1",
+    "ref": "sha256:433a46e35956cc74b33d051c65afd4ff7a9bd2142439cd16abe20a20d12d6caf"
+  },
+  "binding": {
+    "schema": "DOGGOSecurityObservationIdentityBinding/v0.1",
+    "identity_profile": "CorpusContentIdentityProfile/v0.1",
+    "identity_projection": "FULL_DOGGO_SECURITY_OBSERVATION_V0_1",
+    "content_ref": {
+      "type": "DOGGOSecurityObservation/v0.1",
+      "ref": "sha256:433a46e35956cc74b33d051c65afd4ff7a9bd2142439cd16abe20a20d12d6caf"
+    }
+  }
+}

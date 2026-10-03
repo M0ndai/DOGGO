@@ -1,0 +1,9 @@
+{
+  "content_ref": {
+    "ref": "sha256:6346f01abd2b225ba678e85d6f1e6865c77cc0e787837f6a49a3f9ac773b4455",
+    "type": "LandscapeSnapshot/v0.1"
+  },
+  "identity_profile": "CorpusContentIdentityProfile/v0.1",
+  "identity_projection": "FULL_LANDSCAPE_SNAPSHOT_V0_1",
+  "schema": "LandscapeSnapshotIdentityBinding/v0.1"
+}

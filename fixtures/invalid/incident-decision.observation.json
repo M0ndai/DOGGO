@@ -1,0 +1,18 @@
+{
+  "schema": "DOGGOSecurityObservation/v0.1",
+  "subject": {"status": "SUPPLIED", "type": "fixture", "ref": "fixture:subject"},
+  "evidence_boundary": {
+    "status": "SUPPLIED",
+    "sources": [{"type": "fixture", "ref": "fixture:evidence", "collected_at": "2026-09-27T12:00:00Z"}]
+  },
+  "time_window": {"status": "SUPPLIED", "start": "2026-09-27T12:00:00Z", "end": "2026-09-27T12:00:00Z"},
+  "requested_signal": {"status": "SUPPLIED", "signal": "contract boundary"},
+  "observations": [{"statement": "A bounded fact was observed.", "evidence_refs": ["fixture:evidence"], "observed_at": "2026-09-27T12:00:00Z"}],
+  "inferences": [],
+  "limits": ["Fixture only."],
+  "observation_status": "ATTENTION",
+  "handoff_status": "NONE",
+  "incident_decision": "DECLARE_INCIDENT",
+  "authority": "NONE",
+  "effect": "NONE"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "DOGGOSecurityObservation/v0.1",
+  "subject": {
+    "status": "SUPPLIED",
+    "type": "repository",
+    "ref": "git:/home/blackmonolith/mycodeIndex/DOGGO@3e2665f"
+  },
+  "evidence_boundary": {
+    "status": "SUPPLIED",
+    "sources": [
+      {
+        "type": "file",
+        "ref": "DOGGO_PERSONA.md@3e2665f",
+        "collected_at": "2026-09-27T12:00:00Z"
+      }
+    ]
+  },
+  "time_window": {
+    "status": "SUPPLIED",
+    "start": "2026-09-27T12:00:00Z",
+    "end": "2026-09-27T12:00:00Z"
+  },
+  "requested_signal": {
+    "status": "SUPPLIED",
+    "signal": "observation-only contract boundary"
+  },
+  "observations": [
+    {
+      "statement": "The supplied persona contract fixes authority and effect to NONE.",
+      "evidence_refs": [
+        "DOGGO_PERSONA.md@3e2665f"
+      ],
+      "observed_at": "2026-09-27T12:00:00Z"
+    }
+  ],
+  "inferences": [],
+  "limits": [
+    "No runtime state, service health, or external delivery path was observed."
+  ],
+  "observation_status": "NOMINAL",
+  "handoff_status": "NONE",
+  "authority": "NONE",
+  "effect": "NONE"
+}
