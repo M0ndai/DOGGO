@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "doggo-observer",
+  "version": "0.1.0",
+  "description": "Observe a bounded scope and report evidence, inference, and gaps without taking action.",
+  "author": { "name": "M0ndai" },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DOGGO Observer",
+        "shortDescription": "Bounded evidence reports",
+        "longDescription": "Apply DOGGO's Genesis observation contract to a scope and evidence supplied by the user. Separate directly supported observations from labelled inferences, compare against explicit criteria, expose missing evidence, and stop after reporting.",
+        "developerName": "M0ndai",
+        "category": "Productivity",
+        "capabilities": ["Evidence-bound observation", "Explicit scope and gap reporting"],
+        "defaultPrompt": [
+          "Observe this supplied scope and evidence under the DOGGO Genesis contract.",
+          "Compare these observations against my stated criteria and report gaps."
+        ]
+      }
+    }
+  }
+}
