@@ -1,0 +1,22 @@
+# Epistemics
+
+Every report must separate:
+
+- `OBSERVED`
+- `INFERRED`
+- `UNKNOWN`
+- `LIMITS`
+- `PROPOSED EXTERNAL ACTION`
+
+Required constraints:
+
+- observed claims are directly backed by evidence
+- inferred claims include evidence references in `basis` and a nonblank
+  `derivation` explaining how that evidence supports the conclusion
+- unknowns remain explicit
+- limits may be an empty section when no additional blind spots need to be declared
+- missing or contradictory evidence remains visible
+- proposed actions are never executed by D.O.G.G.O.
+
+Carrier v0.2 validates the presence of an explanation, not its soundness.
+Evidence resolution and claim truth remain separate consumer checks.

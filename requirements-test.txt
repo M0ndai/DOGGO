@@ -1,0 +1,2 @@
+# Test-only schema engine; the companion timing validator uses the stdlib.
+jsonschema>=4.23,<5
