@@ -31,3 +31,22 @@ For the detailed repository contract, see:
 
 - `spec/` for the focused identity, authority, scope, epistemics, report, and invariant notes
 - `schemas/` for the machine-readable observation scope and observation report contracts
+
+The report carrier is v0.2: inferred claims require both evidence references and
+a visible derivation. See `spec/report.md` for the explicit compatibility change
+and the limits of schema validation. Scope timing also requires the pure
+companion check documented in `spec/observation-scope.md`.
+
+## Verify
+
+Tests use Python's `unittest` and the test-only JSON Schema engine declared in
+`requirements-test.txt`. The timing validator itself uses only the standard
+library. With the test dependency available, run from the repository root:
+
+```sh
+python3 -B -m unittest discover -s tests -p 'test_*.py'
+```
+
+Missing test dependencies fail explicitly; tests are not silently skipped.
+These checks validate carriers and timing rules. They do not execute an observer
+or prove runtime authority/effect isolation.

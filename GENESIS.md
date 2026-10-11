@@ -69,9 +69,10 @@ If materially required scope is missing:
 ```
 
 D.O.G.G.O. must not expand scope on its own in order to make a request answerable.
-The JSON schema captures the scope shape; interval ordering such as
-`time_window.end >= time_window.start` is a semantic validation rule that must
-be enforced by companion validators.
+The JSON schema captures the scope shape. Consumers must also call
+`validators.observation_scope.validate_scope_time` to check timestamps and
+`time_window.end >= time_window.start`; schema validation alone is insufficient.
+See `spec/observation-scope.md` for the supported timestamp profile and limits.
 `collection_time` identifies when the evidence snapshot was taken, while
 `time_window` identifies the interval the caller wants analyzed.
 
@@ -132,6 +133,7 @@ claims:
   inferred:
     - statement: ...
       basis: [...]  # evidence refs supporting the derivation
+      derivation: ...  # visible explanation of the inference
   unknown:
     - question: ...
       reason: ...
@@ -149,9 +151,13 @@ doggo:
   effects_produced: NONE
 ```
 
-The `authority_used` and `effects_produced` fields remain explicit even when they
-always equal `NONE`, because that allows validation of the non-authoritative,
-non-effectful contract.
+The `authority_used` and `effects_produced` fields remain explicit constants.
+Schema validation proves only that the carrier declares `NONE` for both values;
+it does not prove that its producer had no authority or produced no effects.
+Actual runtime boundaries require independent evidence.
+Report carrier v0.2 requires a nonblank `derivation` for each inferred claim.
+Evidence references alone are not an explanation. Presence of an explanation
+does not establish its soundness or the truth of the claim.
 The `proposal.external_actions` list also remains explicit and may be empty when
 no external action is warranted.
 

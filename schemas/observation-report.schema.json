@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://doggo.dev/schemas/observation-report.schema.json",
+  "$id": "https://doggo.dev/schemas/v0.2/observation-report.schema.json",
   "title": "D.O.G.G.O. Observation Report",
   "type": "object",
   "$defs": {
@@ -107,7 +107,8 @@
             "additionalProperties": false,
             "required": [
               "statement",
-              "basis"
+              "basis",
+              "derivation"
             ],
             "properties": {
               "statement": {
@@ -115,8 +116,14 @@
                 "minLength": 1
               },
               "basis": {
-                "description": "Evidence references that make the derivation visible.",
+                "description": "Evidence references supporting the inference. Reference resolution is a separate consumer responsibility.",
                 "$ref": "#/$defs/non_empty_reference_list"
+              },
+              "derivation": {
+                "description": "Visible explanation of how the referenced evidence supports the inferred statement; presence does not prove truth or soundness.",
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
               }
             }
           }

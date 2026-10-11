@@ -11,8 +11,12 @@ Every report must separate:
 Required constraints:
 
 - observed claims are directly backed by evidence
-- inferred claims remain visibly derived
+- inferred claims include evidence references in `basis` and a nonblank
+  `derivation` explaining how that evidence supports the conclusion
 - unknowns remain explicit
 - limits may be an empty section when no additional blind spots need to be declared
 - missing or contradictory evidence remains visible
 - proposed actions are never executed by D.O.G.G.O.
+
+Carrier v0.2 validates the presence of an explanation, not its soundness.
+Evidence resolution and claim truth remain separate consumer checks.
