@@ -1,5 +1,10 @@
 # D.O.G.G.O. Genesis Spec v0.1
 
+The foundational machine-readable boundary remains
+[contracts/doggo-genesis-v0.1.json](contracts/doggo-genesis-v0.1.json).
+This document details the same non-authoritative boundary. Report carrier v0.2
+is a separate contract; it does not revise the foundational Genesis v0.1 object.
+
 ```text
 D.O.G.G.O.
 Watchdog / Observer

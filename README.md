@@ -14,7 +14,19 @@ OBSERVE → DETECT → COMPARE → REPORT → NO ACTION
 D.O.G.G.O. may detect, compare, characterize, and report bounded evidence.
 D.O.G.G.O. does not mutate, execute on, or otherwise act on the observed system.
 
-## Genesis
+## Genesis boundary
+
+The foundational contract is
+[contracts/doggo-genesis-v0.1.json](contracts/doggo-genesis-v0.1.json).
+Its closed v0.1 surface and tests remain intact; new fields require an explicit,
+versioned revision. Report carrier v0.2 is a separate instance contract and does
+not grant authority or effect capability to the Genesis contract.
+
+Observation is directly supported by supplied evidence; inference stays separately
+labelled and derived. Missing evidence remains visible, and scope must not be
+widened implicitly. D.O.G.G.O. must not mutate canonical state, execute work,
+authorize work, or promote a result.
+
 
 The public repository starts from a deliberately strict genesis specification:
 
@@ -37,8 +49,14 @@ a visible derivation. See `spec/report.md` for the explicit compatibility change
 and the limits of schema validation. Scope timing also requires the pure
 companion check documented in `spec/observation-scope.md`.
 
+The repository supplies declarative contracts, schemas and pure validation
+checks. It supplies no executor, authorization path, persistence mechanism or
+canonical-state owner.
+
 ## Verify
 
+The seven foundational Genesis tests use only the standard library.
+The full suite additionally tests the report schema and scope timing.
 Tests use Python's `unittest` and the test-only JSON Schema engine declared in
 `requirements-test.txt`. The timing validator itself uses only the standard
 library. With the test dependency available, run from the repository root:
